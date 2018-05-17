@@ -3,7 +3,7 @@
 var backgroundgame;
 var flatgame;
 var button;
-var flappy;
+//var flappy;
 //var keyright;
 var cursors;
 var player;
@@ -32,6 +32,12 @@ var StateMain = {
         //flappy.frame = 1;
         ///flappy.animations.add('fly',[0,1,2],10,true);
         player = game.add.sprite(game.width/2,game.height/2,'playertalk');
+        player.anchor.setTo(0.5);
+        // Damos animacion a la imagen y su posicion respectiva
+        player.animations.add('up',[25,26,27,28,29,30,31,32],10,true);
+        player.animations.add('left',[9,10,11,12,13,14,15,16],10,true);
+        player.animations.add('down',[1,2,3,4,5,6,7,6,8],10,true);
+        player.animations.add('right',[17,18,19,20,21,22,23,24],10,true);
         //Capturamos la tecla que esta siendo presionada
         cursors = game.input.keyboard.createCursorKeys();
         // Nos permite iniciar y dar fisica al personaje como: gravedad,frontera.
@@ -40,6 +46,10 @@ var StateMain = {
         //game.physics.arcade.enable(flappy);
         // Nos permite poner limites(que no se salga del limite establecido) al personaje
         //flappy.body.collideWorldBounds = true;
+
+        game.physics.arcade.enable(player);
+        player.body.collideWorldBounds = true;
+
         //keyright = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
         //flappy = game.add.sprite(game.width/2,game.height/2,'yellowbird');
         //flappy.anchor.setTo(0.5,0.5);
@@ -58,25 +68,31 @@ var StateMain = {
         //backgroundgame.tilePosition.x -= 1 ;
         //flatgame.tilePosition.x -= 1 ;
         //flappy.animations.play('fly');
+        //player.animations.stop();
         if(cursors.right.isDown){
             //flappy.position.x += 1;
+            player.position.x +=1;
+            player.animations.play('right');
         }
         if(cursors.left.isDown){
             //flappy.position.x -= 1;
+            player.position.x -=1;
+            player.animations.play('left');
         }
         if(cursors.up.isDown){
+            player.position.y -=1;
+            player.animations.play('up');
             //flappy.position.y -= 1;
         }
         if(cursors.down.isDown){
             //flappy.position.y += 1;
+            player.position.y +=1;
+            player.animations.play('down');
         }
         /* if(keyright.isDown){
             //flappy.angle = 90;
             flappy.position.x+=1;
         } */
-
-
-
     }
 };
 
